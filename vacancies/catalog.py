@@ -11,9 +11,9 @@ class Catalog:
     list_hh: List[VacanciesHH] = []
     list_sj: List[VacanciesSJ] = []
 
-    def upload_vacancies(self):
-        self.list_hh = ParsingHH().get_vacancies()
-        self.list_sj = ParsingSJ().get_vacancies()
+    def upload_vacancies(self, word_search):
+        self.list_hh = ParsingHH().get_vacancies(word_search)
+        self.list_sj = ParsingSJ().get_vacancies(word_search)
 
     def save_to_file(self):
         with open('./vacancies.csv', 'w', encoding='utf-8') as file:
@@ -21,7 +21,7 @@ class Catalog:
             writer.writerow(
                 ('job_title', 'company', 'url', 'salary_min', 'salary_max', 'requirements', 'source')
             )
-        if self.list_hh or self.list_hh:
+        if self.list_hh or self.list_sj:
             with open('./vacancies.csv', 'a') as file:
                 writer = csv.writer(file)
                 writer.writerows(
