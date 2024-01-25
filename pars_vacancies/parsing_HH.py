@@ -8,17 +8,20 @@ from vacancies.hh import VacanciesHH
 
 
 class ParsingHH(VacancyParsing):
-    __url = 'https://api.hh.ru/vacancies/'
 
-    def get_vacancies(self) -> Optional[List[VacanciesHH]]:
-        response = requests.get(self.__url)
+    def get_vacancies(self, word_search) -> Optional[List[VacanciesHH]]:
+        __url = 'https://api.hh.ru/vacancies/'
+        __params = {
+            'text': word_search,  # word_search
+            'per_page': '20',
+            'area': 113
+        }
+        response = requests.get(url=__url, params=__params)
         if response.status_code == 200:
             return self._pars(response.json())
         return None
 
     def _pars(self, data) -> Optional[List[VacanciesHH]]:
-        # print(data)
-        # print('')
         answer = []
         for report in data['items']:
             answer.append(

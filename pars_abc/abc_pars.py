@@ -7,14 +7,14 @@ class VacancyParsing(ABC):
     """
 
     @abstractmethod
-    def get_vacancies(self):
+    def get_vacancies(self, word_search):
         """
         :return: Получаем вакансии
         """
         pass
 
     @abstractmethod
-    def _pars(self):
+    def _pars(self, data):
         """
         :return: Список вакансий
         """
