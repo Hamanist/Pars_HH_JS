@@ -1,7 +1,7 @@
 from source import SourceType
 
 
-class BaseVacancies:
+class VacanciesBase:
     """
     Основной класс для работы для работы с вакансиями
     """
@@ -30,7 +30,11 @@ class BaseVacancies:
         self.source = source
 
     def __str__(self):
-        ...
+        return f'Должность {self.job_title} ' \
+               f'в {self.company}\n' \
+               f'Зарплата от {self.salary_min} до {self.salary_max}\n' \
+               f'Требования: {self.requirements}\n' \
+               f'Источник вакансии {self.source.value}'
 
     def __eq__(self, other):
         return self.salary_max == other.salary_max
@@ -49,3 +53,18 @@ class BaseVacancies:
 
     def __ge__(self, other):
         return self.salary_max >= other.salary_max
+
+    def get_from_string(self):
+        return ','.join(
+            [self.job_title,
+             self.company,
+             self.url,
+             str(self.salary_min),
+             str(self.salary_max),
+             self.requirements,
+             self.source.value]) + '\n'
+
+    def get_from_list(self):
+        return str(self.job_title), str(self.company), str(self.url), str(self.salary_min), str(self.salary_max), \
+            str(self.requirements).replace('\n', ' '), \
+            str(self.source.value)
